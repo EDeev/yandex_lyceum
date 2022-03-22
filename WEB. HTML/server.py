@@ -166,5 +166,108 @@ def form_sample():
         return "Форма отправлена"
 
 
+@app.route('/choice/<planet_name>')
+def choice(planet_name):
+    return f"""<!doctype html>
+                    <html lang="en">
+                      <head>
+                        <meta charset="utf-8">
+                        <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
+                        <title>Колонизация</title>
+                      </head>
+                      <body>
+                        <h1 class="font">Моё предложение: {planet_name}</h1>
+                        <h1>Эта планета близка к Земле;</h1>
+                        <div class="font green"><b>На ней много необходимых ресурсов;</b></div></br>
+                        <div class="font gray"><b>На ней есть вода и атмосфера;</b></div></br>
+                        <div class="font yellow"><b>На ней есть небольшое магнитное поле;</b></div></br>
+                        <div class="font red"><b>Наконец, она просто красива!</b></div></br>
+                      </body>
+                    </html>"""
+
+
+@app.route('/results/<nickname>/<int:level>/<float:rating>')
+def result(nickname, level, rating):
+    return f"""<!doctype html>
+                    <html lang="en">
+                      <head>
+                        <meta charset="utf-8">
+                        <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
+                        <title>Колонизация</title>
+                      </head>
+                      <body>
+                        <h1 class="font">Результаты отбора</h1>
+                        <h1>Претендента на участие в миссии {nickname}:</h1>
+                        <div class="font green"><b>Поздравляем! Ваш рейтинг после {level} этапа отбора</b></div>
+                        <h1>составляет {rating}!</h1>
+                        <div class="font yellow"><b>Желаем удачи!</b></div></br>
+                      </body>
+                    </html>"""
+
+
+@app.route('/load_photo', methods=['POST', 'GET'])
+def photo():
+    if request.method == 'GET':
+        return f'''<!doctype html>
+                        <html lang="en">
+                          <head>
+                            <meta charset="utf-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                            <link rel="stylesheet"
+                            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+                            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+                            crossorigin="anonymous">
+                            <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
+                            <title>Отбор астронавтов</title>
+                          </head>
+                          <body>
+                            <h1 style="text-align:center">Загрузка фотографии</h1>
+                            <h2 style="text-align:center">для участия в миссии</h2>
+                            <div>
+                                <form class="login_form" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="photo">Приложите фотографию</label></br>
+                                        <input type="file" class="form-control-file" id="photo" name="file">
+                                    </div></br>
+                                    <img class="width" src="{url_for('static', filename='img/img.png')}"></br>
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
+                                </form>
+                            </div>
+                          </body>
+                        </html>'''
+    elif request.method == 'POST':
+        f = request.files['file']
+        if f:
+            with open("static/img/img.png", "wb") as file:
+                file.write(f.read())
+        return f'''<!doctype html>
+                        <html lang="en">
+                          <head>
+                            <meta charset="utf-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                            <link rel="stylesheet"
+                            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+                            integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+                            crossorigin="anonymous">
+                            <link rel="stylesheet" type="text/css" href="{url_for('static', filename='css/style.css')}" />
+                            <title>Отбор астронавтов</title>
+                          </head>
+                          <body>
+                            <h1 style="text-align:center">Загрузка фотографии</h1>
+                            <h2 style="text-align:center">для участия в миссии</h2>
+                            <div>
+                                <form class="login_form" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="photo">Приложите фотографию</label></br>
+                                        <input type="file" class="form-control-file" id="photo" name="file">
+                                    </div></br>
+                                    <img class="width" src="{url_for('static', filename='img/img.png')}"></br>
+                                    <button type="submit" class="btn btn-primary">Отправить</button>
+                                </form>
+                            </div>
+                          </body>
+                        </html>'''
+
+
 if __name__ == '__main__':
     app.run(port=8080, host='127.0.0.1')
