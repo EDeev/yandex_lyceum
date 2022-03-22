@@ -2,6 +2,14 @@ h1.red {
    color: #d22e3a;
 }
 
+h1.font {
+   font-size: 36px;
+}
+
+img.width {
+    width: 430px;
+}
+
 form.login_form {
     margin-left: auto;
     margin-right: auto;
