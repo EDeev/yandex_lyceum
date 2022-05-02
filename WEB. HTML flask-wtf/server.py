@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect
+from loginform import LoginForm
     
 
 app = Flask(__name__)
@@ -32,10 +33,13 @@ def answer():
     return render_template('auto_answer.html', **param)
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     param = {'title': "Аварийный доступ"}
-    return render_template('login.html', **param)
+    form = LoginForm()
+    if form.validate_on_submit():
+        return redirect('/success')
+    return render_template('login.html', **param, form=form)
 
 
 if __name__ == '__main__':
