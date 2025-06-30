@@ -126,10 +126,10 @@ YANDEX_API_KEY=your_api_key
 
 ## 👨‍💻 Автор
 
-**Деев Егор Викторович**
+**Деев Егор Викторович** - Backend Developer  
 - GitHub: [@EDeev](https://github.com/EDeev)
 - Email: egor@deev.space
-- Сайт: [deev.space](https://deev.space)
+- Telegram: [@Egor_Deev](https://t.me/Egor_Deev)
 
 ---
 
