@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff==0.14.0 -r requirements.txt
+      - name: Ruff (синтаксис и ошибки)
+        run: ruff check --select E9,F .
+      - name: Приложения импортируются
+        run: |
+          cd 01-flask-html && python -c "import server" && cd ..
+          cd 02-flask-wtf-forms && python -c "import server"
